@@ -1,0 +1,9 @@
+google-api-python-client>=2.100.0
+python-dotenv>=1.0.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+vaderSentiment>=3.3.2
+wordcloud>=1.9.3
+# Optional (better accuracy for multilingual comments):
+# transformers
+# torch
