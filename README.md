@@ -51,13 +51,14 @@ python analyze.py --input data/comments.csv --model vader
 Outputs are saved in the `output/` folder.
 
 ## Results
-_Add your charts here after uploading them to the repo, for example:_
+![Sentiment Distribution](distribution.png) ![Per Video](per_video.png) ![Positive Words](wordcloud_positive.png) ![Negative Words](wordcloud_negative.png)
 
-```md
-![Sentiment Distribution](distribution.png)
-```
-
-**Key findings:** _write 3-4 lines about what you found (overall sentiment split, common complaints, common praise)._
+**Key findings:**
+- Analysed 158 YouTube comments about [Brand name] using VADER sentiment analysis.
+- Overall sentiment was mostly positive: 62.0% positive (98 comments), 32.9% neutral (52 comments) and 5.1% negative (8 comments).
+- Negative comments were very few, so no reliable complaint patterns can be drawn from them.
+- The dataset is small (158 comments), so these results show a general trend rather than a final conclusion.
+- VADER is designed for English, so Roman Urdu and mixed-language comments may be classified as neutral or misclassified. The neutral share may therefore be overstated.
 
 ## Limitations
 - VADER is trained on English and is less accurate on Roman Urdu / mixed-language comments.
