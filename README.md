@@ -51,14 +51,14 @@ python analyze.py --input data/comments.csv --model vader
 Outputs are saved in the `output/` folder.
 
 ## Results
-![Sentiment Distribution](distribution.png) ![Per Video](per_video.png) ![Positive Words](wordcloud_positive.png) ![Negative Words](wordcloud_negative.png)
+![Sentiment Distribution](distribution.png) ![Per Video](per_video.png) ![Positive Words](wordcloud_positive.png) ![
 
 **Key findings:**
-- Analysed 158 YouTube comments about [Brand name] using VADER sentiment analysis.
-- Overall sentiment was mostly positive: 62.0% positive (98 comments), 32.9% neutral (52 comments) and 5.1% negative (8 comments).
-- Negative comments were very few, so no reliable complaint patterns can be drawn from them.
-- The dataset is small (158 comments), so these results show a general trend rather than a final conclusion.
-- VADER is designed for English, so Roman Urdu and mixed-language comments may be classified as neutral or misclassified. The neutral share may therefore be overstated.
+- Analysed 2,175 YouTube comments about Khaadi using VADER sentiment analysis.
+- Overall sentiment: 48.3% positive (1,050 comments), 42.6% neutral (926 comments) and 9.1% negative (199 comments).
+- Positive comments were the largest group, while negative comments made up less than 10% of the dataset.
+- The neutral share is high, which is partly because many comments are short, emoji-only or written in Roman Urdu, which VADER (designed for English) often scores as neutral.
+- Results show a general trend rather than a final conclusion, since comments come only from videos returned by YouTube search.
 
 ## Limitations
 - VADER is trained on English and is less accurate on Roman Urdu / mixed-language comments.
