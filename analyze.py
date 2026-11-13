@@ -73,8 +73,10 @@ def main():
     plt.xticks(rotation=0); plt.tight_layout()
     plt.savefig(f"{a.outdir}/distribution.png", dpi=150); plt.close()
 
-    # 2) Per-video breakdown
-    pv = pd.crosstab(df["video_title"].str[:30], df["sentiment"], normalize="index") * 100
+    # 2) Per-video breakdown: sirf top 12 videos (zyada comments wali)
+    top = df["video_title"].value_counts().head(12).index
+    sub = df[df["video_title"].isin(top)]
+    pv = pd.crosstab(sub["video_title"].str[:35], sub["sentiment"], normalize="index") * 100
     pv.plot(kind="barh", stacked=True, color=[colors.get(c, "#555") for c in pv.columns])
     plt.title("Sentiment per Video (%)"); plt.tight_layout()
     plt.savefig(f"{a.outdir}/per_video.png", dpi=150); plt.close()
