@@ -53,7 +53,7 @@ python analyze.py --input data/comments_clothing.csv --model vader
 Outputs are saved in the `output/` folder.
 
 ## Results
-![Sentiment Distribution](distribution.png) ![Per Video](per_video.png) ![Positive Words](wordcloud_positive.png)
+![Sentiment Distribution](distribution.png) ![Per Video](per_video_top12.png) ![Positive Words](wordcloud_positive.png)
 ![Negative Words](wordcloud_negative.png)
 
 **Key findings (collected 12 Nov 2026):**
