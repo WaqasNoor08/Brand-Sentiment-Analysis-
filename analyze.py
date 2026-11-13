@@ -10,7 +10,7 @@ import re
 
 import matplotlib.pyplot as plt
 import pandas as pd
-from wordcloud import WordCloud
+from wordcloud import WordCloud, STOPWORDS
 
 
 def clean(text):
@@ -77,15 +77,28 @@ def main():
     top = df["video_title"].value_counts().head(12).index
     sub = df[df["video_title"].isin(top)]
     pv = pd.crosstab(sub["video_title"].str[:35], sub["sentiment"], normalize="index") * 100
-    pv.plot(kind="barh", stacked=True, color=[colors.get(c, "#555") for c in pv.columns])
-    plt.title("Sentiment per Video (%)"); plt.tight_layout()
+    pv = pv[[c for c in ["Positive", "Neutral", "Negative"] if c in pv.columns]]
+    fig, ax = plt.subplots(figsize=(11, 6))
+    pv.plot(kind="barh", stacked=True, ax=ax, color=[colors.get(c, "#555") for c in pv.columns])
+    ax.set_title("Sentiment per Video (%), top 12 videos"); ax.set_ylabel("")
+    ax.legend(title="sentiment", bbox_to_anchor=(1.01, 1), loc="upper left")
+    plt.tight_layout()
     plt.savefig(f"{a.outdir}/per_video.png", dpi=150); plt.close()
 
-    # 3) Word clouds
+    # 3) Word clouds (Roman Urdu / English faltu words hata kar)
+    BRAND = "khaadi"
+    extra = {"video", "videos", "please", "plz", "pls", "khadi", BRAND.lower(),
+             "ka", "ki", "ke", "ko", "hai", "hy", "ho", "h", "ha", "ye", "yeh",
+             "bhi", "hi", "se", "me", "mein", "kya", "kia", "ap", "aap", "api", "kr", "kar",
+             "karo", "nhi", "ji", "sis", "sister", "mam", "madam", "apa", "bhai",
+             "hain", "hn", "hun", "tha", "thi", "aur", "or", "wo", "woh", "sy", "py", "pe", "par",
+             "liye", "lye", "jo", "koi", "ab", "tu", "tou", "to", "main", "mn", "ya", "na",
+             "hum", "mujhe", "apki", "apka", "aapki", "aapka", "gi", "ga", "gy", "hy"}
+    stop = STOPWORDS | extra
     for label in ["Positive", "Negative"]:
         text = " ".join(df.loc[df["sentiment"] == label, "clean"])
         if len(text) > 20:
-            wc = WordCloud(width=900, height=450, background_color="white").generate(text)
+            wc = WordCloud(width=900, height=450, background_color="white", stopwords=stop, min_word_length=3).generate(text)
             wc.to_file(f"{a.outdir}/wordcloud_{label.lower()}.png")
 
     print(f"\nSaved results + charts in '{a.outdir}/'")
